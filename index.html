@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Step Calculator</title>
+
+  <!-- Styles -->
+  <link rel="stylesheet" type="text/css" href="styles.css">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Fira+Mono&display=swap" rel="stylesheet">
+
+  <!-- Scripts -->
+  <script src="main.js"></script>
+</head>
+
+<body>
+  <h1>Arcaea World Mode Step Calculator</h1>
+
+  <div class="options">
+    <div>
+      <select>
+        <option>Enter</option>
+        <option>Avoid</option>
+      </select>
+      <label> Tile</label>
+    </div>
+    <div>
+      <label>Steps to Tile: </label>
+      <input type="text" placeholder="4.5">
+    </div>
+    <div>
+      <label>Steps in Target Tile: </label>
+      <input type="text" placeholder="5.0">
+    </div>
+    <div>
+      <label>Partner Step Stat: </label>
+      <input type="text" placeholder="50">
+    </div>
+    <div>
+      <label>Chart Constant: </label>
+      <input type="text" placeholder="9.0">
+    </div>
+    <a href="https://lowiro.fandom.com/wiki/Songs_by_Chart_Constant" id="link-to-chart">
+      - Click here for chart constant chart -
+    </a>
+    <div>
+      <button id="button-calculate">Calculate!!</button>
+    </div>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th id="th-score">Score</th>
+        <th>Steps</th>
+        <th><abbr title="Chart Potential">Pot.</abbr></th>
+        <th id="th-notes">Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>6,942,087</td>
+        <td>4.4</td>
+        <td>0.8</td>
+        <td>Highest score to avoid the tile</td>
+      </tr>
+      <tr>
+        <td>7,487,630</td>
+        <td>9.6</td>
+        <td>7.0</td>
+        <td>Lowest score to skip the tile</td>
+      </tr>
+      <tr>
+        <td>6,123,456</td>
+        <td>2.5</td>
+        <td>0.0</td>
+        <td>Highest score for 0 potential</td>
+      </tr>
+      <tr>
+        <td>6,200,000</td>
+        <td>2.6</td>
+        <td>0.1</td>
+        <td>-</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div id="fuck-talk">
+    <p>!! Caution: You could lose potential with scores below EX without hard fail !!</p>
+    <br>
+    <p><strong>- CALCULATED -</strong></p>
+    <p>Say no more to Fixed Speed and Restrictions!</p>
+    <p>Land exactly on stamina tiles everytime!</p>
+    <br>
+    <p>Formula: Steps = (2.45 * sqrt(Chart Potential) + 2.5) * Partner Step Stat / 50</p>
+  </div>
+</body>
+
+</html>
