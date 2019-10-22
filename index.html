@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Step Calculator</title>
 
   <!-- Styles -->
@@ -12,7 +12,7 @@
   <link href="https://fonts.googleapis.com/css?family=Fira+Mono&display=swap" rel="stylesheet">
 
   <!-- Scripts -->
-  <script src="main.js"></script>
+  <script src="main.js" defer></script>
 </head>
 
 <body>
@@ -20,7 +20,7 @@
 
   <div class="options">
     <div>
-      <select>
+      <select id="is-avoid">
         <option>Enter</option>
         <option>Avoid</option>
       </select>
@@ -28,19 +28,19 @@
     </div>
     <div>
       <label>Steps to Tile: </label>
-      <input type="text" placeholder="4.5">
+      <input id="steps-to-tile" type="text" value="4.5">
     </div>
     <div>
       <label>Steps in Target Tile: </label>
-      <input type="text" placeholder="5.0">
+      <input id="steps-in-target-tile" type="text" value="5.0">
     </div>
     <div>
       <label>Partner Step Stat: </label>
-      <input type="text" placeholder="50">
+      <input id="partner-step-stat" type="text" value="50">
     </div>
     <div>
       <label>Chart Constant: </label>
-      <input type="text" placeholder="9.0">
+      <input id="chart-constant" type="text" value="9.0">
     </div>
     <a href="https://lowiro.fandom.com/wiki/Songs_by_Chart_Constant" id="link-to-chart">
       - Click here for chart constant chart -
@@ -59,8 +59,8 @@
         <th id="th-notes">Notes</th>
       </tr>
     </thead>
-    <tbody>
-      <tr>
+    <tbody id="table-chart">
+      <!-- <tr>
         <td>6,942,087</td>
         <td>4.4</td>
         <td>0.8</td>
@@ -83,11 +83,11 @@
         <td>2.6</td>
         <td>0.1</td>
         <td>-</td>
-      </tr>
+      </tr> -->
     </tbody>
   </table>
 
-  <div id="fuck-talk">
+  <div class="fuck-talk">
     <p>!! Caution: You could lose potential with scores below EX without hard fail !!</p>
     <br>
     <p><strong>- CALCULATED -</strong></p>
