@@ -18,14 +18,14 @@
 <body>
   <h1>Arcaea World Mode Step Calculator</h1>
 
-  <div class="options">
-    <div>
-      <select id="is-avoid">
-        <option>Enter</option>
-        <option>Avoid</option>
-      </select>
-      <label> Tile</label>
-    </div>
+  <div id="options-top">
+    <select id="is-avoid">
+      <option>Enter</option>
+      <option>Avoid</option>
+    </select>
+    <label> Tile</label>
+  </div>
+  <div id="options-left">
     <div>
       <label>Steps to Tile: </label>
       <input id="steps-to-tile" type="text" value="4.5">
@@ -34,6 +34,8 @@
       <label>Steps in Target Tile: </label>
       <input id="steps-in-target-tile" type="text" value="5.0">
     </div>
+  </div>
+  <div id="options-right">
     <div>
       <label>Partner Step Stat: </label>
       <input id="partner-step-stat" type="text" value="50">
@@ -42,66 +44,41 @@
       <label>Chart Constant: </label>
       <input id="chart-constant" type="text" value="9.0">
     </div>
-    <a href="https://lowiro.fandom.com/wiki/Songs_by_Chart_Constant" id="link-to-chart">
-      - Click here for chart constant chart -
+  </div>
+  <div id="options-bottom">
+    <a id="link-to-chart" href="https://lowiro.fandom.com/wiki/Songs_by_Chart_Constant" target="_blank">
+      - Chart constant list (Open new window) -
     </a>
-    <div>
+  </div>
+
+  <div id="range-table">
+    <div id="div-button-calculate">
       <button id="button-calculate">Calculate Range</button>
     </div>
+    <table>
+      <thead>
+        <tr>
+          <th id="th-score">Score</th>
+          <th>Steps</th>
+          <th><abbr title="Chart Potential">Pot.</abbr></th>
+          <th id="th-notes">Notes</th>
+        </tr>
+      </thead>
+      <tbody id="table-chart">
+      </tbody>
+    </table>
   </div>
-
-  <table>
-    <thead>
-      <tr>
-        <th id="th-score">Score</th>
-        <th>Steps</th>
-        <th><abbr title="Chart Potential">Pot.</abbr></th>
-        <th id="th-notes">Notes</th>
-      </tr>
-    </thead>
-    <tbody id="table-chart">
-      <!-- <tr>
-        <td>6,942,087</td>
-        <td>4.4</td>
-        <td>0.8</td>
-        <td>Highest score to avoid the tile</td>
-      </tr>
-      <tr>
-        <td>7,487,630</td>
-        <td>9.6</td>
-        <td>7.0</td>
-        <td>Lowest score to skip the tile</td>
-      </tr>
-      <tr>
-        <td>6,123,456</td>
-        <td>2.5</td>
-        <td>0.0</td>
-        <td>Highest score for 0 potential</td>
-      </tr>
-      <tr>
-        <td>6,200,000</td>
-        <td>2.6</td>
-        <td>0.1</td>
-        <td>-</td>
-      </tr> -->
-    </tbody>
-  </table>
 
   <div id="score-calc">
-    <label id="potential-string"></label>
+    <label id="potential-string">Chart Potential: 8.7<br></label>
     <input id="potential-slider" type="range" min="0" max="13.2" step="0.02" value="8.7">
-    <p id="score-string"></p>
+    <p id="score-string">
+      <em>Score Mod + 9 = 8.7 => Score Mod = -0.3</em><br>
+      Score = 9410000 (A)<br>
+      <em>Steps = (2.45 * sqrt(8.7) + 2.5) * 1</em><br>
+      Steps = 9.73
+    </p>
   </div>
-
-  <!-- <div class="fuck-talk">
-    <p>!! Caution: You could lose potential with scores below EX without hard fail !!</p>
-    <br>
-    <p><strong>- CALCULATED -</strong></p>
-    <p>Say no more to Fixed Speed and Restrictions!</p>
-    <p>Land exactly on stamina tiles everytime!</p>
-    <br>
-    <p>Formula: Steps = (2.45 * sqrt(Chart Potential) + 2.5) * Partner Step Stat / 50</p>
-  </div> -->
 </body>
 
 </html>

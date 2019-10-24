@@ -89,11 +89,11 @@ function onSliderInput(e) {
     let scoreMod = chartPotential - getChartConstant();
     let score = getScoreFromScoreMod(scoreMod);
 
-    potentialString.innerHTML = `<br>Chart Potential: ${chartPotential}<br>`;
-    scoreString.innerHTML = `Score Mod + ${getChartConstant()} = ${chartPotential} => Score Mod = ${roundToPrecision(scoreMod, 2)}<br>` +
-        `=> Score = ${score} (${getGradeFromScore(score)})<br>` +
-        `Steps = (2.45 * sqrt(${chartPotential}) + 2.5) * ${getPartnerStepStat() / 50}<br>` +
-        `=> Steps = ${roundToPrecision(getStepsFromPotential(chartPotential), 2)}`;
+    potentialString.innerHTML = `Chart Potential: ${chartPotential}<br>`;
+    scoreString.innerHTML = `<em>Score Mod + ${getChartConstant()} = ${chartPotential} => Score Mod = ${roundToPrecision(scoreMod, 2)}</em><br>` +
+        `Score = ${score} (${getGradeFromScore(score)})<br>` +
+        `<em>Steps = (2.45 * sqrt(${chartPotential}) + 2.5) * ${getPartnerStepStat() / 50}</em><br>` +
+        `Steps = ${roundToPrecision(getStepsFromPotential(chartPotential), 2)}`;
 }
 
 function calculateChart() {
@@ -126,22 +126,9 @@ function calculateChart() {
             "Cannot stop in the tile", "Cannot skip over the tile", "Highest score to enter the tile");
     }
 
-    // score = getScoreFromScoreMod(-getChartConstant());
-
-    // chartArray.push([score, getPartnerStepStat() / 20, 0, "Highest score to have zero chart potential"])
-
-    // let scoreStep = 100000;
-    // for (score += score % scoreStep == 0 ? scoreStep : -score % scoreStep; score <= 10000000; score += 100000) {
-    //     scoreMod = getScoreModFromScore(score);
-    //     potential = getPotentialFromScoreMod(scoreMod);
-    //     chartArray.push([score == 10000000 ? "10000000+" : score, 
-    //         getStepsFromPotential(potential), potential, score == 10000000 ? "Pure Memory" : ""]);
-    // }
-
     let str = "";
 
     for (let row of chartArray) {
-        console.log(row);
         str += "<tr>";
         for (let cnt of row) {
             str += `<td>${(typeof cnt) === "number" ? Math.round(cnt * 100) / 100 : cnt}</td>`;
