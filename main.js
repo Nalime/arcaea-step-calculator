@@ -1,5 +1,11 @@
+let slider = document.querySelector("#potential-slider");
+let sliderNum = document.querySelector("#potential-slider-number");
+let potentialString = document.querySelector("#potential-string");
+let scoreString = document.querySelector("#score-string");
+
 function main() {
     document.querySelector("#button-calculate").onclick = (e) => calculateChart();
+    slider.oninput = onSliderInput;
 }
 
 function getIsAvoid() {
@@ -33,14 +39,14 @@ function getStepsFromPotential(chartPotential) {
 
 // Return -1 if computed score < 0, -2 if computed score > 10M
 function getScoreFromScoreMod(scoreMod) {
-    return scoreMod < 1.5 ? scoreMod * 300000 + 9500000 : (scoreMod - 1.5) * 50000 + 9950000;
+    return scoreMod < 1.5 ? scoreMod * 300000 + 9500000 : (scoreMod - 1.5) * 100000 + 9950000;
 }
 
 function getScoreModFromScore(score) {
     if (score < 9950000)
         return (score - 9500000) / 300000;
     else if (score < 10000000)
-        return (score - 9950000) / 50000 + 1.5;
+        return (score - 9950000) / 100000 + 1.5;
     else
         return 2;
 }
@@ -56,6 +62,40 @@ function getPotentialFromScoreMod(scoreMod) {
     return Math.max(getChartConstant() + Math.min(scoreMod, 2), 0);
 }
 
+function getGradeFromScore(score) {
+    if (score < 8600000)
+        return "D";
+    else if (score < 8900000)
+        return "C";
+    else if (score < 9200000)
+        return "B";
+    else if (score < 9500000)
+        return "A";
+    else if (score < 9800000)
+        return "AA";
+    else if (score < 10000000)
+        return "EX";
+    else
+        return "PM";
+}
+
+function roundToPrecision(num, precision) {
+    let mag = Math.pow(10, precision);
+    return Math.round(num * mag) / mag;
+}
+
+function onSliderInput(e) {
+    let chartPotential = slider.value;
+    let scoreMod = chartPotential - getChartConstant();
+    let score = getScoreFromScoreMod(scoreMod);
+
+    potentialString.innerHTML = `<br>Chart Potential: ${chartPotential}<br>`;
+    scoreString.innerHTML = `Score Mod + ${getChartConstant()} = ${chartPotential} => Score Mod = ${roundToPrecision(scoreMod, 2)}<br>` +
+        `=> Score = ${score} (${getGradeFromScore(score)})<br>` +
+        `Steps = (2.45 * sqrt(${chartPotential}) + 2.5) * ${getPartnerStepStat() / 50}<br>` +
+        `=> Steps = ${roundToPrecision(getStepsFromPotential(chartPotential), 2)}`;
+}
+
 function calculateChart() {
     let chartArray = new Array();
 
@@ -66,7 +106,7 @@ function calculateChart() {
     function calculateRow(steps, lowNotes, highNotes, successNotes) {
         let scoreMod = getScoreModFromSteps(steps);
 
-        if (scoreMod === null || scoreMod < -9500000/300000)
+        if (scoreMod === null || scoreMod < -9500000 / 300000)
             addRowInvalid(lowNotes);
         else if (scoreMod > 2)
             addRowInvalid(highNotes);
@@ -75,14 +115,14 @@ function calculateChart() {
     }
 
     if (getIsAvoid()) {
-        calculateRow(getStepsToTile() - 0.1, 
+        calculateRow(getStepsToTile() - 0.1,
             "Cannot stop before the tile", "Cannot reach the tile", "Highest score to stop before the tile");
-        calculateRow(getStepsToTile() + getStepsInTargetTile(), 
+        calculateRow(getStepsToTile() + getStepsInTargetTile(),
             "Cannot stop in the tile", "Cannot skip over the tile", "Lowest score to stop before the tile");
     } else {
-        calculateRow(getStepsToTile(), 
+        calculateRow(getStepsToTile(),
             "Cannot stop before the tile", "Cannot reach the tile", "Lowest score to enter the tile");
-        calculateRow(getStepsToTile() + getStepsInTargetTile() - 0.1, 
+        calculateRow(getStepsToTile() + getStepsInTargetTile() - 0.1,
             "Cannot stop in the tile", "Cannot skip over the tile", "Highest score to enter the tile");
     }
 

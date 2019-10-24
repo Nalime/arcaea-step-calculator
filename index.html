@@ -46,7 +46,7 @@
       - Click here for chart constant chart -
     </a>
     <div>
-      <button id="button-calculate">Calculate!!</button>
+      <button id="button-calculate">Calculate Range</button>
     </div>
   </div>
 
@@ -87,7 +87,13 @@
     </tbody>
   </table>
 
-  <div class="fuck-talk">
+  <div id="score-calc">
+    <label id="potential-string"></label>
+    <input id="potential-slider" type="range" min="0" max="13.2" step="0.02" value="8.7">
+    <p id="score-string"></p>
+  </div>
+
+  <!-- <div class="fuck-talk">
     <p>!! Caution: You could lose potential with scores below EX without hard fail !!</p>
     <br>
     <p><strong>- CALCULATED -</strong></p>
@@ -95,7 +101,7 @@
     <p>Land exactly on stamina tiles everytime!</p>
     <br>
     <p>Formula: Steps = (2.45 * sqrt(Chart Potential) + 2.5) * Partner Step Stat / 50</p>
-  </div>
+  </div> -->
 </body>
 
 </html>
