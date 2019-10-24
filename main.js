@@ -52,10 +52,10 @@ function getScoreModFromScore(score) {
 }
 
 // Need to test for return > 2 or < -31.666
-function getScoreModFromSteps(targetSteps) {
-    if (50 * targetSteps / getPartnerStepStat() < 2.5)
+function getScoreModFromSteps(targetSteps, partnerStepStat) {
+    if (50 * targetSteps / partnerStepStat < 2.5)
         return null;
-    return Math.pow(((50 * targetSteps / getPartnerStepStat() - 2.5) / 2.45), 2) - getChartConstant();
+    return Math.pow(((50 * targetSteps / partnerStepStat - 2.5) / 2.45), 2) - getChartConstant();
 }
 
 function getPotentialFromScoreMod(scoreMod) {
@@ -115,35 +115,40 @@ function calculateChart() {
         chartArray.push(["-", "-", "-", notes]);
     }
 
-    function calculateRow(steps, lowNotes, highNotes, successNotes) {
-        let scoreMod = getScoreModFromSteps(steps);
+    function calculateRow(steps, type, successNotes) {
+        // Because Step shown is rounded down apparently
+        let scoreMod = getScoreModFromSteps(steps, getPartnerStepStat() + (type == "low" ? 0 : 1));
 
         if (scoreMod === null || scoreMod < -9500000 / 300000)
-            addRowInvalid(lowNotes);
+            addRowInvalid(type == "low" ? "Cannot stop before the tile" : "Cannot stop in the tile");
         else if (scoreMod > 2)
-            addRowInvalid(highNotes);
+            addRowInvalid(type == "low" ? "Cannot stop in the tile" : "Cannot skip over the tile");
         else
             chartArray.push([getScoreFromScoreMod(scoreMod), steps, getPotentialFromScoreMod(scoreMod), successNotes]);
     }
 
     if (getIsAvoid()) {
-        calculateRow(getStepsToTile() - 0.1,
-            "Cannot stop before the tile", "Cannot reach the tile", "Highest score to stop before the tile");
-        calculateRow(getStepsToTile() + getStepsInTargetTile(),
-            "Cannot stop in the tile", "Cannot skip over the tile", "Lowest score to stop before the tile");
+        calculateRow(getStepsToTile() - 0.1, "low", "Highest safe score to stop before the tile");
+        calculateRow(getStepsToTile() + getStepsInTargetTile(), "high", "Lowest safe score to skip the tile");
     } else {
-        calculateRow(getStepsToTile(),
-            "Cannot stop before the tile", "Cannot reach the tile", "Lowest score to enter the tile");
-        calculateRow(getStepsToTile() + getStepsInTargetTile() - 0.1,
-            "Cannot stop in the tile", "Cannot skip over the tile", "Highest score to enter the tile");
+        calculateRow(getStepsToTile(), "low", "Lowest safe score to enter the tile");
+        calculateRow(getStepsToTile() + getStepsInTargetTile() - 0.1, "high", "Highest safe score to enter the tile");
     }
 
     let str = "";
 
     for (let row of chartArray) {
         str += "<tr>";
-        for (let cnt of row) {
-            str += `<td>${(typeof cnt) === "number" ? addCommaSeparator(Math.round(cnt * 100) / 100) : cnt}</td>`;
+        for (let i = 0; i < row.length; i++) {
+            if ((typeof row[i]) === "number") {
+                if (i == 0) {
+                    str += `<td>${addCommaSeparator(roundToPrecision(row[i], 1))}</td>`;
+                } else {
+                    str += `<td>${addCommaSeparator(roundToPrecision(row[i], 2))}</td>`;
+                }
+            } else {
+                str += `<td>${row[i]}</td>`;
+            }
         }
         str += "</tr>";
     }

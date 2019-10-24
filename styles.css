@@ -24,7 +24,7 @@ h1 {
 #extra {
     position: absolute;
     top: 0;
-    right: 0;
+    right: 5px;
     font-size: 0.7em;
     text-align: right;
 }
@@ -65,7 +65,7 @@ select {
 }
 
 input {
-    width: 40px;
+    width: 55px;
 }
 
 a, a:visited {
@@ -111,7 +111,7 @@ td {
 }
 
 #th-notes {
-    padding: 5px 160px;
+    padding: 5px 200px;
 }
 
 #score-calc {
@@ -124,4 +124,9 @@ td {
 
 #score-string {
     margin: 0;
+}
+
+#fuck-talk {
+    color: #e99;
+    text-align: center;
 }
