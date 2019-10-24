@@ -84,6 +84,18 @@ function roundToPrecision(num, precision) {
     return Math.round(num * mag) / mag;
 }
 
+function addCommaSeparator(num) {
+    num = num.toString();
+    dotIndex = num.indexOf(".");
+    for (let i = dotIndex != -1 ? dotIndex : num.length, j = 0; i > 0; i-- , j++) {
+        if (j == 3) {
+            num = num.substring(0, i) + "," + num.substring(i);
+            j = 0;
+        }
+    }
+    return num;
+}
+
 function onSliderInput(e) {
     let chartPotential = slider.value;
     let scoreMod = chartPotential - getChartConstant();
@@ -91,7 +103,7 @@ function onSliderInput(e) {
 
     potentialString.innerHTML = `Chart Potential: ${chartPotential}<br>`;
     scoreString.innerHTML = `<em>Score Mod + ${getChartConstant()} = ${chartPotential} => Score Mod = ${roundToPrecision(scoreMod, 2)}</em><br>` +
-        `Score = ${score} (${getGradeFromScore(score)})<br>` +
+        (score > 10000000 ? "Too high!<br>" : `Score = ${addCommaSeparator(score)} (${getGradeFromScore(score)})<br>`) +
         `<em>Steps = (2.45 * sqrt(${chartPotential}) + 2.5) * ${getPartnerStepStat() / 50}</em><br>` +
         `Steps = ${roundToPrecision(getStepsFromPotential(chartPotential), 2)}`;
 }
@@ -131,7 +143,7 @@ function calculateChart() {
     for (let row of chartArray) {
         str += "<tr>";
         for (let cnt of row) {
-            str += `<td>${(typeof cnt) === "number" ? Math.round(cnt * 100) / 100 : cnt}</td>`;
+            str += `<td>${(typeof cnt) === "number" ? addCommaSeparator(Math.round(cnt * 100) / 100) : cnt}</td>`;
         }
         str += "</tr>";
     }
