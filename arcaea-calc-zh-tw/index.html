@@ -3,10 +3,11 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Step Calculator</title>
+  <title>飛行棋精算師</title>
 
   <!-- Styles -->
-  <link rel="stylesheet" type="text/css" href="styles.css">
+  <link rel="stylesheet" type="text/css" href="../styles/default.css">
+  <link rel="stylesheet" type="text/css" href="../styles/arcaea-calc.css">
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Fira+Mono&display=swap" rel="stylesheet">
@@ -16,57 +17,57 @@
 </head>
 
 <body>
-  <h1>Arcaea World Mode Step Calculator</h1>
+  <h1>Arcaea 飛行棋精算師</h1>
 
   <div id="extra">
-    <a href="https://github.com/Nalime/arcaea-calculator" target="_blank">GitHub Page</a> | Discord: Nalime#2605<br>
-    <!-- <a>English</a> | <a>繁體中文</a> -->
+    <a href="https://github.com/Nalime/Nalime.github.io/tree/master/arcaea-calc" target="_blank">GitHub Page</a> | Discord: Nalime#2605<br>
+    <a href="../arcaea-calc/index.html">English</a> | <strong>繁體中文</strong>
   </div>
 
   <div id="options-top">
     <select id="is-avoid">
-      <option>Enter</option>
-      <option>Avoid</option>
+      <option>進入</option>
+      <option>避開</option>
     </select>
-    <label> Tile</label>
+    <label> 指定階</label>
   </div>
   <div id="options-left">
     <div>
-      <label>Steps to Tile: </label>
+      <label>到指定階的步數: </label>
       <input id="steps-to-tile" type="number" step=".1" value="4.5">
     </div>
     <div>
-      <label>Steps in Target Tile: </label>
+      <label>指定階內的步數: </label>
       <input id="steps-in-target-tile" type="number" step=".1" value="5.0">
     </div>
   </div>
   <div id="options-right">
     <div>
-      <label>Partner Step Stat: </label>
+      <label>夥伴 Step: </label>
       <input id="partner-step-stat" type="number" value="50">
     </div>
     <div>
-      <label>Chart Constant: </label>
+      <label>譜面定數: </label>
       <input id="chart-constant" type="number" step=".1" value="9.0">
     </div>
   </div>
   <div id="options-bottom">
     <a id="link-to-chart" href="https://lowiro.fandom.com/wiki/Songs_by_Chart_Constant" target="_blank">
-      - Chart constant list (Opens in new window) -
+      - 定數表 (新視窗，英文) -
     </a>
   </div>
 
   <div id="range-table">
     <div id="div-button-calculate">
-      <button id="button-calculate">Calculate Range</button>
+      <button id="button-calculate">計算區間</button>
     </div>
     <table>
       <thead>
         <tr>
-          <th id="th-score">Score</th>
-          <th>Steps</th>
-          <th><abbr title="Chart Potential">Pot.</abbr></th>
-          <th id="th-notes">Notes</th>
+          <th id="th-score">分數</th>
+          <th>步數</th>
+          <th>P值</th>
+          <th id="th-notes" style="padding: 5px 125px;">備註</th>
         </tr>
       </thead>
       <tbody id="table-chart">
@@ -75,18 +76,18 @@
   </div>
 
   <div id="score-calc">
-    <label id="potential-string">Chart Potential: 8.7<br></label>
+    <label id="potential-string">P值: 8.7<br></label>
     <input id="potential-slider" type="range" min="0" max="13.2" step="0.02" value="8.7">
     <p id="score-string">
-      <em>Score Mod + 9 = 8.7 => Score Mod = -0.3</em><br>
-      Score = 9,410,000 (A)<br>
-      <em>Steps = (2.45 * sqrt(8.7) + 2.5) * 1</em><br>
-      Steps = 9.73
+      <em>分數P值 + 9 = 8.7 => 分數P值 = -0.3</em><br>
+      分數 = 9,410,000 (A)<br>
+      <em>步數 = (2.45 * sqrt(8.7) + 2.5) * Step倍率 => 9.73 * 1</em><br>
+      步數 = 9.73
     </p>
   </div>
 
   <div id="fuck-talk">
-    <p><strong>!! Caution: You may lose ptt with scores below EX without hard failing !!</strong></p>
+    <p><strong>!! 注意: 不到EX的分數如果不是紅血空掉就有可能噴ptt !!</strong></p>
   </div>
 </body>
 

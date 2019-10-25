@@ -1,22 +1,3 @@
-body {
-    background-color: #222;
-    color: #ddd;
-    font: 18px "Fira Mono";
-}
-
-em {
-    color: #ddda;
-    font-size: 0.9em;
-}
-
-select, option, input {
-    font: 16px "Fira Mono";
-}
-
-select, option, input, button {
-    background-color: #aaaf;
-}
-
 h1 {
     text-align: center;
 }
@@ -66,18 +47,6 @@ select {
 
 input {
     width: 55px;
-}
-
-a, a:visited {
-    color: #0af;
-}
-
-a:hover {
-    color: #6bf;
-}
-
-a:active {
-    color: #08d;
 }
 
 #div-button-calculate {

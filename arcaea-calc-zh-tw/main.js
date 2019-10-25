@@ -11,7 +11,7 @@ function main() {
 function getIsAvoid() {
     let option = document.querySelector("#is-avoid").value;
 
-    if (option == "Avoid")
+    if (option == "避開")
         return true;
     else
         return false;
@@ -101,11 +101,12 @@ function onSliderInput(e) {
     let scoreMod = chartPotential - getChartConstant();
     let score = getScoreFromScoreMod(scoreMod);
 
-    potentialString.innerHTML = `Chart Potential: ${chartPotential}<br>`;
-    scoreString.innerHTML = `<em>Score Mod + ${getChartConstant()} = ${chartPotential} => Score Mod = ${roundToPrecision(scoreMod, 2)}</em><br>` +
-        (score > 10000000 ? "Too high!<br>" : `Score = ${addCommaSeparator(score)} (${getGradeFromScore(score)})<br>`) +
-        `<em>Steps = (2.45 * sqrt(${chartPotential}) + 2.5) * ${getPartnerStepStat() / 50}</em><br>` +
-        `Steps = ${roundToPrecision(getStepsFromPotential(chartPotential), 2)}`;
+    potentialString.innerHTML = `P值: ${chartPotential}<br>`;
+    scoreString.innerHTML = `<em>分數P值 + ${getChartConstant()} = ${chartPotential} => 分數P值 = ${roundToPrecision(scoreMod, 2)}</em><br>` +
+        (score > 10000000 ? "P值設定過高!<br>" : `分數 = ${addCommaSeparator(score)} (${getGradeFromScore(score)})<br>`) +
+        `<em>步數 = (2.45 * sqrt(${chartPotential}) + 2.5) * Step倍率` + 
+        ` => ${roundToPrecision(2.45 * Math.sqrt(chartPotential) + 2.5, 2)} * ${getPartnerStepStat() / 50}</em><br>` +
+        `步數 = ${roundToPrecision(getStepsFromPotential(chartPotential), 2)}`;
 }
 
 function calculateChart() {
@@ -120,19 +121,19 @@ function calculateChart() {
         let scoreMod = getScoreModFromSteps(steps, getPartnerStepStat() + (type == "low" ? 0 : 1));
 
         if (scoreMod === null || scoreMod < -9500000 / 300000)
-            addRowInvalid(type == "low" ? "Cannot stop before the tile" : "Cannot stop in the tile");
+            addRowInvalid(type == "low" ? "停不在指定階前" : "停不在指定階內");
         else if (scoreMod > 2)
-            addRowInvalid(type == "low" ? "Cannot stop in the tile" : "Cannot skip over the tile");
+            addRowInvalid(type == "low" ? "停不在指定階內" : "跳不過指定階");
         else
             chartArray.push([getScoreFromScoreMod(scoreMod), steps, getPotentialFromScoreMod(scoreMod), successNotes]);
     }
 
     if (getIsAvoid()) {
-        calculateRow(getStepsToTile() - 0.1, "low", "Highest safe score to stop before the tile");
-        calculateRow(getStepsToTile() + getStepsInTargetTile(), "high", "Lowest safe score to skip the tile");
+        calculateRow(getStepsToTile() - 0.1, "low", "保險最高能停在指定階前的分數");
+        calculateRow(getStepsToTile() + getStepsInTargetTile(), "high", "保險最低能跳過指定階的分數");
     } else {
-        calculateRow(getStepsToTile(), "low", "Lowest safe score to enter the tile");
-        calculateRow(getStepsToTile() + getStepsInTargetTile() - 0.1, "high", "Highest safe score to enter the tile");
+        calculateRow(getStepsToTile(), "low", "保險最低能進到指定階的分數");
+        calculateRow(getStepsToTile() + getStepsInTargetTile() - 0.1, "high", "保險最高能進到指定階的分數");
     }
 
     let str = "";
