@@ -1,3 +1,7 @@
+# NOTE
+- Not up to date
+- And the formula is actually incorrect anyways
+
 # TODO
 - A pretty slider for output score etc. that's also draggable as input
 - Slider for everything?
